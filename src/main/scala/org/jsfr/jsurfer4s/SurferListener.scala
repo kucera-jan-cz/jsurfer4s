@@ -1,23 +1,15 @@
 package org.jsfr.jsurfer4s
 
 import com.fasterxml.jackson.databind.JsonNode
-import org.jsfr.json.{JsonPathListener, ParsingContext}
+import org.jsfr.json.JsonPathListener
+import org.jsfr.jsurfer4s.jackson.JacksonSurferListener
 
-case class SurferListener(jsonPath: String, func: (JsonNode) => Unit) {
-  def toJsonPathListener(): JsonPathListener = {
-    new JsonListener(func)
-  }
-}
+trait SurferListener {
+  def getJsonPath: String
 
-object SurferListener {
-  implicit def tupleToListener(tuple: Tuple2[String, (JsonNode) => Unit]): SurferListener = {
-    new SurferListener(tuple._1, tuple._2)
-  }
-}
+  def toJsonPathListener: JsonPathListener
 
-private class JsonListener(func: (JsonNode) => Unit) extends JsonPathListener {
-  override def onValue(value: AnyRef, context: ParsingContext): Unit = {
-    val node = value.asInstanceOf[JsonNode]
-    func.apply(node)
+  implicit def tupleToListener(tuple: (String, (JsonNode) => Unit)): JacksonSurferListener = {
+    new JacksonSurferListener(tuple._1, tuple._2)
   }
 }

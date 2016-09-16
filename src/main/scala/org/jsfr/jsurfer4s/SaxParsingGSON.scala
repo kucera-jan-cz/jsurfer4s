@@ -2,11 +2,14 @@ package org.jsfr.jsurfer4s
 
 import java.io.StringReader
 
-import com.fasterxml.jackson.databind.JsonNode
+import com.google.gson.JsonElement
 import com.typesafe.scalalogging.Logger
-import org.jsfr.jsurfer4s.JacksonJsonMethods._
-object JsonSax {
-  private val logger = Logger(JsonSax.getClass)
+import org.jsfr.jsurfer4s.gson.GSONJsonMethods._
+import org.jsfr.jsurfer4s.gson.GSONSurferListener
+
+
+object SaxParsingGSON {
+  private val logger = Logger(SaxParsingGSON.getClass)
 
   def main(args: Array[String]) {
     val json =
@@ -24,23 +27,22 @@ object JsonSax {
       			""".stripMargin
     val reader = new StringReader(json)
     parse(reader,
-      "$.hits.bucket[*]" -> { (node: JsonNode) => {
-
-          logger.info("B: {}", node)
+      "$.hits.bucket[*]" -> { (node: JsonElement) => {
+        logger.info("B: {}", node)
       }
       },
-      "$.status.X" -> { (node: JsonNode) => {
+      "$.status.X" -> { (node: JsonElement) => {
         logger.info("X: {}", node)
       }
       }
     )
     val reader2 = new StringReader(json)
-    val listeners = List[SurferListener](
-      "$.status.X" -> { (node: JsonNode) => {
+    val listeners = List[GSONSurferListener](
+      "$.status.X" -> { (node: JsonElement) => {
         logger.info("X: {}", node)
       }
       },
-      "$.hits.bucket[*]" -> { (node: JsonNode) => {
+      "$.hits.bucket[*]" -> { (node: JsonElement) => {
         logger.info("B: {}", node)
       }
       }
