@@ -2,15 +2,15 @@ package org.jsfr.jsurfer4s
 
 import java.io.StringReader
 
+import com.fasterxml.jackson.databind.JsonNode
 import com.typesafe.scalalogging.Logger
+import org.jsfr.jsurfer4s.jackson.JacksonJsonMethods._
 import org.jsfr.jsurfer4s.listener.{CompletableListener, SurferListener}
-import org.jsfr.jsurfer4s.simple.SimpleJsonMethods._
-import org.json.simple.JSONObject
 
 import scala.util.{Failure, Success}
 
-object SaxParsingSimple {
-  private val logger = Logger(SaxParsingSimple.getClass)
+object SaxParsingJackson {
+  private val logger = Logger(SaxParsingJackson.getClass)
 
   def main(args: Array[String]) {
     val json =
@@ -28,22 +28,22 @@ object SaxParsingSimple {
       			""".stripMargin
     val reader = new StringReader(json)
     parse(reader,
-      "$.hits.bucket[*]" -> { (node: JSONObject) => {
+      "$.hits.bucket[*]" -> { (node: JsonNode) => {
         logger.info("B: {}", node)
       }
       },
-      "$.status.X" -> { (node: JSONObject) => {
+      "$.status.X" -> { (node: JsonNode) => {
         logger.info("X: {}", node)
       }
       }
     )
     val reader2 = new StringReader(json)
     val listeners = List[SurferListener](
-      "$.status.X" -> { (node: JSONObject) => {
+      "$.status.X" -> { (node: JsonNode) => {
         logger.info("X: {}", node)
       }
       },
-      "$.hits.bucket[*]" -> { (node: JSONObject) => {
+      "$.hits.bucket[*]" -> { (node: JsonNode) => {
         logger.info("B: {}", node)
       }
       }
@@ -51,11 +51,8 @@ object SaxParsingSimple {
     parse(reader2, listeners)
     import scala.concurrent.ExecutionContext.Implicits.global
     val async = SurferExecutor(json)
-    val xValue = async.collectOne("$.status", (node: JSONObject) => {
-      val value: Int = node.get("X").asInstanceOf[Int]
-      value
-    })
-    val hits = async.collectAll("$.hits.bucket[*]", (node: JSONObject) => node.keySet().iterator().next().toString)
+    val xValue = async.collectOne("$.status.X", (node: JsonNode) => node.intValue())
+    val hits = async.collectAll("$.hits.bucket[*]", (node: JsonNode) => node.fieldNames().next())
     async.register("$.hits.bucket[*]", new BucketCounter())
     xValue.onSuccess {
       case x: Int => logger.info("Future X: {}", x)
@@ -82,5 +79,4 @@ object SaxParsingSimple {
       counter += 1
     }
   }
-
 }

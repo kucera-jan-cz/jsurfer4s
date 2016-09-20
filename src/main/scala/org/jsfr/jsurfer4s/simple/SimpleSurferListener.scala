@@ -1,7 +1,7 @@
 package org.jsfr.jsurfer4s.simple
 
 import org.jsfr.json.{JsonPathListener, ParsingContext}
-import org.jsfr.jsurfer4s.SurferListener
+import org.jsfr.jsurfer4s.listener.SurferListener
 import org.json.simple.JSONObject
 
 case class SimpleSurferListener(jsonPath: String, func: (JSONObject) => Unit) extends SurferListener {

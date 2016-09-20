@@ -2,7 +2,7 @@ package org.jsfr.jsurfer4s.jackson
 
 import com.fasterxml.jackson.databind.JsonNode
 import org.jsfr.json.{JsonPathListener, ParsingContext}
-import org.jsfr.jsurfer4s.SurferListener
+import org.jsfr.jsurfer4s.listener.SurferListener
 
 case class JacksonSurferListener(jsonPath: String, func: (JsonNode) => Unit) extends SurferListener {
   def toJsonPathListener(): JsonPathListener = {
