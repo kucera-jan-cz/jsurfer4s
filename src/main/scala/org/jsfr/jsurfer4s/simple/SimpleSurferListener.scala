@@ -2,9 +2,8 @@ package org.jsfr.jsurfer4s.simple
 
 import org.jsfr.json.{JsonPathListener, ParsingContext}
 import org.jsfr.jsurfer4s.listener.SurferListener
-import org.json.simple.JSONObject
 
-case class SimpleSurferListener(jsonPath: String, func: (JSONObject) => Unit) extends SurferListener {
+case class SimpleSurferListener(jsonPath: String, func: (AnyRef) => Unit) extends SurferListener {
   def toJsonPathListener(): JsonPathListener = {
     new SimpleJsonListener(func)
   }
@@ -12,9 +11,8 @@ case class SimpleSurferListener(jsonPath: String, func: (JSONObject) => Unit) ex
   override def getJsonPath: String = jsonPath
 }
 
-private class SimpleJsonListener(func: (JSONObject) => Unit) extends JsonPathListener {
+private class SimpleJsonListener(func: (AnyRef) => Unit) extends JsonPathListener {
   override def onValue(value: AnyRef, context: ParsingContext): Unit = {
-    val node = value.asInstanceOf[JSONObject]
-    func.apply(node)
+    func.apply(value)
   }
 }

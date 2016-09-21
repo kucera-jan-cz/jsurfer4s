@@ -16,8 +16,7 @@ trait JsonMethods {
     for {listener <- listeners} {
       builder.bind(listener.getJsonPath, listener.toJsonPathListener)
     }
-    val config = builder.build()
-    surfer.surf(in, config)
+    builder.buildAndSurf(in)
   }
 
   def buildJsonSurfer(): JsonSurfer
