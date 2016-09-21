@@ -3,6 +3,7 @@ package org.jsfr.jsurfer4s
 import java.io.StringReader
 
 import com.fasterxml.jackson.databind.JsonNode
+import com.fasterxml.jackson.databind.node.ObjectNode
 import com.typesafe.scalalogging.Logger
 import org.jsfr.jsurfer4s.jackson.JacksonJsonMethods._
 import org.jsfr.jsurfer4s.listener.{CompletableListener, SurferListener}
@@ -28,7 +29,7 @@ object SaxParsingJackson {
       			""".stripMargin
     val reader = new StringReader(json)
     parse(reader,
-      "$.hits.bucket[*]" -> { (node: JsonNode) => {
+      "$.hits.bucket[*]" -> { (node: ObjectNode) => {
         logger.info("B: {}", node)
       }
       },

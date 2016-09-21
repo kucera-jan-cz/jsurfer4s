@@ -11,7 +11,7 @@ trait SimpleJsonMethods extends JsonMethods {
 
 //@TODO check what type is passed to Listeners
 object SimpleJsonMethods extends SimpleJsonMethods {
-  implicit def tupleToListener(tuple: (String, (AnyRef) => Unit)): SimpleSurferListener = {
+  implicit def tupleToListener[I <: AnyRef](tuple: (String, I => Unit)): SimpleSurferListener[I] = {
     new SimpleSurferListener(tuple._1, tuple._2)
   }
 

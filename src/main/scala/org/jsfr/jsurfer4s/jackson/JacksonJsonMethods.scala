@@ -11,7 +11,7 @@ trait JacksonJsonMethods extends JsonMethods {
 }
 
 object JacksonJsonMethods extends JacksonJsonMethods {
-  implicit def tupleToListener(tuple: (String, (JsonNode) => Unit)): JacksonSurferListener = {
+  implicit def tupleToListener[I <: JsonNode](tuple: (String, (I) => Unit)): JacksonSurferListener[I] = {
     new JacksonSurferListener(tuple._1, tuple._2)
   }
 

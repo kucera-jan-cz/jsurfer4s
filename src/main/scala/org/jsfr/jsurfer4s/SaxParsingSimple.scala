@@ -28,7 +28,7 @@ object SaxParsingSimple {
       			""".stripMargin
     val reader = new StringReader(json)
     parse(reader,
-      "$.hits.bucket[*]" -> { (node: AnyRef) => {
+      "$.hits.bucket[*]" -> { (node: JSONObject) => {
         logger.info("B: {}", node)
       }
       },
@@ -51,12 +51,12 @@ object SaxParsingSimple {
     parse(reader2, listeners)
     import scala.concurrent.ExecutionContext.Implicits.global
     val async = SurferExecutor(json)
-    val xValue = async.collectOne("$.status", (node: AnyRef) => {
-      val value: Int = node.asInstanceOf[JSONObject].get("X").asInstanceOf[Int]
+    val xValue = async.collectOne("$.status", (node: JSONObject) => {
+      val value: Int = node.get("X").asInstanceOf[Int]
       value
     })
-    val hits = async.collectAll("$.hits.bucket[*]", (node: AnyRef) => {
-      val result = node.asInstanceOf[JSONObject].keySet().iterator().next().toString
+    val hits = async.collectAll("$.hits.bucket[*]", (node: JSONObject) => {
+      val result = node.keySet().iterator().next().toString
       result
     })
     async.register("$.hits.bucket[*]", new BucketCounter())

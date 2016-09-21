@@ -12,7 +12,7 @@ trait GSONJsonMethods extends JsonMethods {
 
 //@TODO check what type is passed to Listeners
 object GSONJsonMethods extends GSONJsonMethods {
-  implicit def tupleToListener(tuple: (String, (JsonElement) => Unit)): GSONSurferListener = {
+  implicit def tupleToListener[I <: JsonElement](tuple: (String, (I) => Unit)): GSONSurferListener[I] = {
     new GSONSurferListener(tuple._1, tuple._2)
   }
 

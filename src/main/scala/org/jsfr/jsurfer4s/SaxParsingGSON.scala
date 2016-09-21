@@ -2,7 +2,7 @@ package org.jsfr.jsurfer4s
 
 import java.io.StringReader
 
-import com.google.gson.JsonElement
+import com.google.gson.{JsonElement, JsonObject}
 import com.typesafe.scalalogging.Logger
 import org.jsfr.jsurfer4s.gson.GSONJsonMethods._
 import org.jsfr.jsurfer4s.listener.{CompletableListener, SurferListener}
@@ -29,7 +29,7 @@ object SaxParsingGSON {
       			""".stripMargin
     val reader = new StringReader(json)
     parse(reader,
-      "$.hits.bucket[*]" -> { (node: JsonElement) => {
+      "$.hits.bucket[*]" -> { (node: JsonObject) => {
         logger.info("B: {}", node)
       }
       },
@@ -52,8 +52,8 @@ object SaxParsingGSON {
     parse(reader2, listeners)
     import scala.concurrent.ExecutionContext.Implicits.global
     val async = SurferExecutor(json)
-    val xValue = async.collectOne("$.status.X", (node: JsonElement) => node.getAsInt)
-    val hits = async.collectAll("$.hits.bucket[*]", (node: JsonElement) => node.getAsString)
+    val xValue = async.collectOne("$.status.X", (node: JsonObject) => node.getAsInt)
+    val hits = async.collectAll("$.hits.bucket[*]", (node: JsonObject) => node.toString)
     async.register("$.hits.bucket[*]", new BucketCounter())
     xValue.onSuccess {
       case x: Int => logger.info("Future X: {}", x)
