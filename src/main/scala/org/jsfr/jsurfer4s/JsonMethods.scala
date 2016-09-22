@@ -2,22 +2,18 @@ package org.jsfr.jsurfer4s
 
 import java.io.Reader
 
-import org.jsfr.json.JsonSurfer
 import org.jsfr.jsurfer4s.listener.SurferListener
 
 trait JsonMethods {
-  def parse(in: Reader, listeners: SurferListener*): Unit = {
+  def parse(in: Reader, listeners: SurferListener*)(implicit builderFactory: SurferConfigBuilderFactory): Unit = {
     parse(in, listeners)
   }
 
-  def parse(in: Reader, listeners: Iterable[SurferListener]): Unit = {
-    val surfer = buildJsonSurfer()
-    val builder = surfer.configBuilder()
+  def parse(in: Reader, listeners: Iterable[SurferListener])(implicit builderFactory: SurferConfigBuilderFactory): Unit = {
+    val builder = builderFactory.build()
     for {listener <- listeners} {
       builder.bind(listener.getJsonPath, listener.toJsonPathListener)
     }
     builder.buildAndSurf(in)
   }
-
-  def buildJsonSurfer(): JsonSurfer
 }

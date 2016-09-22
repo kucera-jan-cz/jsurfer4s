@@ -1,6 +1,5 @@
 package org.jsfr.jsurfer4s
 
-import org.jsfr.json.JsonSurfer
 import org.jsfr.jsurfer4s.listener.{CollectAllListener, CollectOneListener, CompletableListener}
 
 import scala.collection.mutable
@@ -8,16 +7,17 @@ import scala.concurrent.{Future, Promise}
 
 /**
   *
-  * @param in     input JSON which should be parsed
-  * @param surfer corresponding JsonSurfer defined to appropriate JSON library registered
+  * @param in            input JSON which should be parsed
+  * @param configFactory constructs JsonSurfer configuration including appropriate surfer (Jackson, GSON, Simple).
   * @tparam B base type which all JSON types (object, array, primitive) extends
   */
-class SurferExecutor[B](in: String, surfer: JsonSurfer) {
+class SurferExecutor[B](in: String)(implicit configFactory: SurferConfigBuilderFactory) {
   private val allListeners = mutable.ArrayBuffer.empty[CompletableListener[B]]
-  private val builder = surfer.configBuilder()
+  private val builder = configFactory.build()
+  private var executed = false
 
-  def collectAll[I <: B, T](jsonPath: String, func: I => T): Future[List[T]] = {
-    val promise = Promise[List[T]]()
+  def collectAll[I <: B, T](jsonPath: String, func: I => T): Future[Seq[T]] = {
+    val promise = Promise[Seq[T]]()
     val listener = new CollectAllListener[I, T](func, promise)
     register(jsonPath, listener)
     promise.future
@@ -36,8 +36,14 @@ class SurferExecutor[B](in: String, surfer: JsonSurfer) {
   }
 
   def execute(): Unit = {
-    //@TODO - handle multiple invocations
-    surfer.surf(in, builder.build())
+    if (!executed) {
+      executed = true
+      executeOnlyOnce()
+    }
+  }
+
+  private def executeOnlyOnce(): Unit = {
+    builder.buildAndSurf(in)
     for {f <- allListeners} {
       f.complete()
     }

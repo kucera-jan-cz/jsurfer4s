@@ -2,8 +2,9 @@ package org.jsfr.jsurfer4s
 
 import java.io.StringReader
 
-import com.google.gson.{JsonElement, JsonObject}
+import com.google.gson.{JsonArray, JsonElement, JsonObject}
 import com.typesafe.scalalogging.Logger
+import org.jsfr.json._
 import org.jsfr.jsurfer4s.gson.GSONJsonMethods._
 import org.jsfr.jsurfer4s.listener.{CompletableListener, SurferListener}
 
@@ -14,6 +15,21 @@ object SaxParsingGSON {
   private val logger = Logger(SaxParsingGSON.getClass)
 
   def main(args: Array[String]) {
+
+    implicit val builderFactory = new SurferConfigBuilderFactory {
+      val strategy = new DefaultErrorHandlingStrategy {
+        override def handleExceptionFromListener(e: Exception, context: ParsingContext): Unit = {
+          logger.warn("Found exception {} at  {}", e, context.getJsonPath)
+          super.handleExceptionFromListener(e, context)
+        }
+      }
+
+      override def build(): SurfingConfiguration.Builder = {
+        logger.info("Building surfing configuration")
+        JsonSurfer.gson().configBuilder().withErrorStrategy(strategy)
+      }
+    }
+
     val json =
       """
         	 			|{
@@ -29,7 +45,7 @@ object SaxParsingGSON {
       			""".stripMargin
     val reader = new StringReader(json)
     parse(reader,
-      "$.hits.bucket[*]" -> { (node: JsonObject) => {
+      "$.hits.bucket[*]" -> { (node: JsonArray) => {
         logger.info("B: {}", node)
       }
       },
@@ -38,6 +54,7 @@ object SaxParsingGSON {
       }
       }
     )
+
     val reader2 = new StringReader(json)
     val listeners = List[SurferListener](
       "$.status.X" -> { (node: JsonElement) => {
