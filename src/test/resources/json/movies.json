@@ -1,0 +1,146 @@
+{
+  "Search": [
+    {
+      "Title": "Batman Begins",
+      "Year": "2005",
+      "imdbID": "tt0372784",
+      "Type": "movie",
+      "Poster": "N/A"
+    },
+    {
+      "Title": "Batman v Superman: Dawn of Justice",
+      "Year": "2016",
+      "imdbID": "tt2975590",
+      "Type": "movie",
+      "Poster": "http://ia.media-imdb.com/images/M/MV5BYThjYzcyYzItNTVjNy00NDk0LTgwMWQtYjMwNmNlNWJhMzMyXkEyXkFqcGdeQXVyMTQxNzMzNDI@._V1_SX300.jpg"
+    },
+    {
+      "Title": "Batman",
+      "Year": "1989",
+      "imdbID": "tt0096895",
+      "Type": "movie",
+      "Poster": "http://ia.media-imdb.com/images/M/MV5BMTYwNjAyODIyMF5BMl5BanBnXkFtZTYwNDMwMDk2._V1_SX300.jpg"
+    },
+    {
+      "Title": "Batman Returns",
+      "Year": "1992",
+      "imdbID": "tt0103776",
+      "Type": "movie",
+      "Poster": "http://ia.media-imdb.com/images/M/MV5BODM2OTc0Njg2OF5BMl5BanBnXkFtZTgwMDA4NjQxMTE@._V1_SX300.jpg"
+    },
+    {
+      "Title": "Batman Forever",
+      "Year": "1995",
+      "imdbID": "tt0112462",
+      "Type": "movie",
+      "Poster": "http://ia.media-imdb.com/images/M/MV5BNWY3M2I0YzItNzA1ZS00MzE3LThlYTEtMTg2YjNiOTYzODQ1XkEyXkFqcGdeQXVyMTQxNzMzNDI@._V1_SX300.jpg"
+    },
+    {
+      "Title": "Batman & Robin",
+      "Year": "1997",
+      "imdbID": "tt0118688",
+      "Type": "movie",
+      "Poster": "http://ia.media-imdb.com/images/M/MV5BMGQ5YTM1NmMtYmIxYy00N2VmLWJhZTYtN2EwYTY3MWFhOTczXkEyXkFqcGdeQXVyNTA2NTI0MTY@._V1_SX300.jpg"
+    },
+    {
+      "Title": "Batman: The Animated Series",
+      "Year": "1992–1995",
+      "imdbID": "tt0103359",
+      "Type": "series",
+      "Poster": "http://ia.media-imdb.com/images/M/MV5BMTU3MjcwNzY3NF5BMl5BanBnXkFtZTYwNzA2MTI5._V1_SX300.jpg"
+    },
+    {
+      "Title": "Batman: Under the Red Hood",
+      "Year": "2010",
+      "imdbID": "tt1569923",
+      "Type": "movie",
+      "Poster": "http://ia.media-imdb.com/images/M/MV5BMTMwNDEyMjExOF5BMl5BanBnXkFtZTcwMzU4MDU0Mw@@._V1_SX300.jpg"
+    },
+    {
+      "Title": "Batman: The Dark Knight Returns, Part 1",
+      "Year": "2012",
+      "imdbID": "tt2313197",
+      "Type": "movie",
+      "Poster": "http://ia.media-imdb.com/images/M/MV5BMzIxMDkxNDM2M15BMl5BanBnXkFtZTcwMDA5ODY1OQ@@._V1_SX300.jpg"
+    },
+    {
+      "Title": "Batman: The Dark Knight Returns, Part 2",
+      "Year": "2013",
+      "imdbID": "tt2166834",
+      "Type": "movie",
+      "Poster": "http://ia.media-imdb.com/images/M/MV5BMTQ1Mjk1NTY2NV5BMl5BanBnXkFtZTgwMTA2MDEwNzE@._V1_SX300.jpg"
+    },
+    {
+      "Title": "Behind the Mask: The Batman Dead End Story",
+      "Year": "2015",
+      "imdbID": "tt3181178",
+      "Type": "movie",
+      "Poster": "http://ia.media-imdb.com/images/M/MV5BODczOTY0MTg1MV5BMl5BanBnXkFtZTgwODgwNjMyMjE@._V1_SX300.jpg"
+    },
+    {
+      "Title": "James Batman",
+      "Year": "1966",
+      "imdbID": "tt0361763",
+      "Type": "movie",
+      "Poster": "http://ia.media-imdb.com/images/M/MV5BMjU3MGU3ZTktN2M1OS00OGNjLWIyNzEtYzU3Nzg5ZjllODY5XkEyXkFqcGdeQXVyMzYzNzc1NjY@._V1_SX300.jpg"
+    },
+    {
+      "Title": "Beyond Batman: From Jack to the Joker",
+      "Year": "2005",
+      "imdbID": "tt1006834",
+      "Type": "movie",
+      "Poster": "N/A"
+    },
+    {
+      "Title": "Batman: Revenge of the Joker",
+      "Year": "1992",
+      "imdbID": "tt0469030",
+      "Type": "game",
+      "Poster": "N/A"
+    },
+    {
+      "Title": "Batman: The Caped Crusader",
+      "Year": "1988",
+      "imdbID": "tt0473297",
+      "Type": "game",
+      "Poster": "N/A"
+    },
+    {
+      "Title": "Beyond Batman: Designing the Batsuit",
+      "Year": "2005",
+      "imdbID": "tt1006833",
+      "Type": "movie",
+      "Poster": "N/A"
+    },
+    {
+      "Title": "Batman: The Brave and the Bold - The Videogame",
+      "Year": "2010",
+      "imdbID": "tt1613073",
+      "Type": "game",
+      "Poster": "http://ia.media-imdb.com/images/M/MV5BZGJlODUzNzQtMGY4Ny00ZjU0LThjZGUtMDg5ZTUyMzExYmE2XkEyXkFqcGdeQXVyNDQ2OTk4MzI@._V1_SX300.jpg"
+    },
+    {
+      "Title": "Batman and Me: A Devotion to Destiny, the Bob Kane Story",
+      "Year": "2008",
+      "imdbID": "tt1781773",
+      "Type": "movie",
+      "Poster": "N/A"
+    },
+    {
+      "Title": "Beyond Batman: Visualizing Gotham - The Production Design of Batman",
+      "Year": "2005",
+      "imdbID": "tt1006835",
+      "Type": "movie",
+      "Poster": "N/A"
+    },
+    {
+      "Title": "Batman v. Superman XXX: An Axel Braun Parody",
+      "Year": "2015",
+      "imdbID": "tt4666866",
+      "Type": "movie",
+      "Poster": "N/A"
+    }
+  ],
+  "totalResults": "314",
+  "Response": "True"
+}
